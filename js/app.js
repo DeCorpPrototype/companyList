@@ -61,6 +61,37 @@ companyList.controller('MainCtrl', function($scope, $location, $http){
             $scope.compName = $scope.compLeader = $scope.compInn = '';
             alert('Компания добавлена');
         }
+
+        $("#inputLeader").suggestions({
+            serviceUrl: "https://suggestions.dadata.ru/suggestions/api/4_1/rs",
+            token: "4c6c92f7a561543cbb0ca7c15dffda25b4a5137c",
+            type: "NAME",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(suggestion) {
+                console.log(suggestion);
+            }
+        });
+        $("#inputName").suggestions({
+            serviceUrl: "https://suggestions.dadata.ru/suggestions/api/4_1/rs",
+            token: "4c6c92f7a561543cbb0ca7c15dffda25b4a5137c",
+            type: "PARTY",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(suggestion) {
+                console.log(suggestion);
+            }
+        });
+        $("#inputLeader").suggestions({
+            serviceUrl: "https://suggestions.dadata.ru/suggestions/api/4_1/rs",
+            token: "4c6c92f7a561543cbb0ca7c15dffda25b4a5137c",
+            type: "NAME",
+            count: 5,
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(suggestion) {
+                console.log(suggestion);
+            }
+        });
     };
 })
 
