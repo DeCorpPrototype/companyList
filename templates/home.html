@@ -1,0 +1,19 @@
+<div ng-controller="CompanyListCtrl">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Название компании</th>
+                <th>Руководитель</th>
+                <th>ИНН</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="company in data">
+                <td><a href="#/company/{{company.inn}}/{{company.company}}/{{company.leader}}">{{ company.company }}</a></td>
+                <td>{{ company.leader }}</td>
+                <td>{{ company.inn }}</td>
+                <td><button class="btn btn-danger" ng-click='removeCompany($index)'>X</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
