@@ -1,4 +1,4 @@
-var companyList = angular.module('companyList', ['ngRoute']);
+var companyList = angular.module('companyList', ['ngRoute','ngDialog']);
 
 companyList.config(['$routeProvider', function($routeProvide) {
     $routeProvide
@@ -25,19 +25,33 @@ companyList.controller('MainCtrl', function($scope, $location, $http){
     });
 })
 
-.controller('CompanyListCtrl', function($scope, $http, $location) {    
+.controller('CompanyListCtrl', function($scope, $http, $location, ngDialog) {
 
     $scope.removeCompany = function(idx) {
-        if (confirm('Удалить компанию?')) {
             $scope.data.splice(idx, 1);
-        }
+    };
+
+    $scope.clickToOpen = function (company, index) {
+        $scope.comp = company;
+        $scope.idx = index;
+        ngDialog.open({
+            template: 'templates/modalTemplate.html',
+            className: 'ngdialog-theme-default',
+            scope: $scope,
+            controller: 'CompanyListCtrl'
+        });
+    };
+
+    $scope.editCompany = function() {
+        $scope.data[$scope.idx].company = $scope.editName;
+        $scope.data[$scope.idx].leader = $scope.editLeader;
+        $scope.data[$scope.idx].inn = $scope.editInn;
     };
 
 })
 
 .controller('AddCompanyCtrl', function($scope, $location){
     $scope.addCompany = function() {
-        console.log($scope);
         if ($scope.compName && $scope.compLeader && $scope.compInn) {
             $scope.data.push({
                 inn:    $scope.compInn,
@@ -45,10 +59,11 @@ companyList.controller('MainCtrl', function($scope, $location, $http){
                 leader: $scope.compLeader
             });
             $scope.compName = $scope.compLeader = $scope.compInn = '';
+            alert('Компания добавлена');
         }
     };
-});
+})
 
-companyList.controller('CompanyDetailCtrl', function($scope, $location, $routeParams){
+.controller('CompanyDetailCtrl', function($scope, $location, $routeParams){
     $scope.companyInfo = $routeParams;
 });

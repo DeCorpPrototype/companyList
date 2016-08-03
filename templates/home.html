@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="company in data | filter:searchText:strict">
+            <tr ng-repeat="company in data | filter:searchText:strict" ng-dblclick='clickToOpen(company, $index)'>
                 <td><a href="#/company/{{company.inn}}/{{company.company}}/{{company.leader}}">{{ company.company }}</a></td>
                 <td>{{ company.leader }}</td>
                 <td>{{ company.inn }}</td>
