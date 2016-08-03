@@ -1,14 +1,24 @@
 <div ng-controller="CompanyListCtrl">
+    <div class="col-md-4">
+        <input class="form-control" type="text" ng-model="searchText.company" placeholder="Search by company name">
+    </div>
+    <div class="col-md-4">
+        <input class="form-control" type="text" ng-model="searchText.leader" placeholder="Search by leader">
+    </div>
+    <div class="col-md-4">
+        <input class="form-control" type="text" ng-model="searchText.inn" placeholder="Search by INN">
+    </div>
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>Название компании</th>
                 <th>Руководитель</th>
                 <th>ИНН</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="company in data">
+            <tr ng-repeat="company in data | filter:searchText:strict">
                 <td><a href="#/company/{{company.inn}}/{{company.company}}/{{company.leader}}">{{ company.company }}</a></td>
                 <td>{{ company.leader }}</td>
                 <td>{{ company.inn }}</td>

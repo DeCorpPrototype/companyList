@@ -19,11 +19,13 @@ companyList.config(['$routeProvider', function($routeProvide) {
         });
 }]);
 
-companyList.controller('CompanyListCtrl', function($scope, $http, $location) {
-
+companyList.controller('MainCtrl', function($scope, $location, $http){
     $http.get('js/data.json').success(function(data){
         $scope.data = data;
     });
+})
+
+.controller('CompanyListCtrl', function($scope, $http, $location) {    
 
     $scope.removeCompany = function(idx) {
         if (confirm('Удалить компанию?')) {
@@ -31,10 +33,20 @@ companyList.controller('CompanyListCtrl', function($scope, $http, $location) {
         }
     };
 
-});
+})
 
-companyList.controller('AddCompanyCtrl', function($scope, $location){
-
+.controller('AddCompanyCtrl', function($scope, $location){
+    $scope.addCompany = function() {
+        console.log($scope);
+        if ($scope.compName && $scope.compLeader && $scope.compInn) {
+            $scope.data.push({
+                inn:    $scope.compInn,
+                company: $scope.compName,
+                leader: $scope.compLeader
+            });
+            $scope.compName = $scope.compLeader = $scope.compInn = '';
+        }
+    };
 });
 
 companyList.controller('CompanyDetailCtrl', function($scope, $location, $routeParams){
